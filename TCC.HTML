@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>📋 TCC - MP Mercadinhos Pereira</title>
+    
+    <!-- Bootstrap + Ícones -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    
+    <style>
+        body {
+            background: linear-gradient(135deg, #667eea15 0%, #764ba215 100%);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        /* Sidebar estilosa */
+        .sidebar-tcc {
+            background: white;
+            border-radius: 25px;
+            padding: 25px 15px;
+            box-shadow: 0 15px 35px rgba(102, 126, 234, 0.1);
+            position: sticky;
+            top: 20px;
+            border: 1px solid rgba(102, 126, 234, 0.1);
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+        
+        .sidebar-tcc:hover {
+            box-shadow: 0 20px 40px rgba(102, 126, 234, 0.2);
+        }
+        
+        /* Título do índice */
+        .indice-titulo {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            text-align: center;
+            font-weight: bold;
+            font-size: 1.5rem;
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+        }
+        
+        /* Links do índice */
+        .nav-link-indice {
+            color: #2d3748;
+            padding: 12px 15px;
+            border-radius: 12px;
+            margin: 5px 0;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            border-left: 3px solid transparent;
+            display: flex;
+            align-items: center;
+        }
+        
+        .nav-link-indice i {
+            margin-right: 10px;
+            font-size: 1.2rem;
+            color: #667eea;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-link-indice:hover {
+            background: linear-gradient(135deg, #667eea10 0%, #764ba210 100%);
+            border-left: 3px solid #667eea;
+            transform: translateX(5px);
+        }
+        
+        .nav-link-indice:hover i {
+            transform: scale(1.2);
+        }
+        
+        .nav-link-indice.active {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-left: 3px solid white;
+        }
+        
+        .nav-link-indice.active i {
+            color: white;
+        }
+        
+        /* Cards de conteúdo */
+        .content-card {
+            background: white;
+            border-radius: 25px;
+            padding: 35px;
+            margin-bottom: 25px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+            border: 1px solid rgba(102, 126, 234, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .content-card:hover {
+            box-shadow: 0 15px 35px rgba(102, 126, 234, 0.1);
+        }
+        
+        /* Títulos das seções */
+        .section-title {
+            color: #2d3748;
+            font-weight: 700;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 3px solid;
+            border-image: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-image-slice: 1;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .section-number {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            width: 35px;
+            height: 35px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+        
+        /* Emojis grandes */
+        .emoji-large {
+            font-size: 2.5rem;
+            margin-right: 15px;
+        }
+        
+        /* Citações e destaques */
+        .quote-box {
+            background: linear-gradient(135deg, #667eea05 0%, #764ba205 100%);
+            border-left: 5px solid #667eea;
+            padding: 20px;
+            border-radius: 15px;
+            margin: 20px 0;
+            font-style: italic;
+            color: #4a5568;
+        }
+        
+        /* Botão de coragem */
+        .btn-coragem {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+        }
+        
+        .btn-coragem:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+            color: white;
+        }
+        
+        /* Badge de sentimento */
+        .sentimento-badge {
+            display: inline-block;
+            padding: 5px 15px;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            margin: 2px;
+        }
+        
+        .sentimento-medo { background: #fee2e2; color: #dc2626; }
+        .sentimento-esperanca { background: #dbeafe; color: #2563eb; }
+        .sentimento-gratidao { background: #dcfce7; color: #16a34a; }
+    </style>
+</head>
+<body>
+
+<div class="container-fluid py-5">
+    <div class="row g-4">
+        <!-- ===== SIDEBAR COM ÍNDICE ===== -->
+        <div class="col-lg-3">
+            <div class="sidebar-tcc">
+                <div class="indice-titulo">
+                    <i class="bi bi-list-check me-2"></i> ÍNDICE
+                </div>
+                
+                <nav class="nav flex-column">
+                    <a class="nav-link nav-link-indice" href="#intro">
+                        <i class="bi bi-stars"></i> 
+                        <span>Introdução: A Ideia e o Medo</span>
+                    </a>
+                    <a class="nav-link nav-link-indice" href="#projeto">
+                        <i class="bi bi-shop"></i> 
+                        <span>O Projeto: MP Mercadinhos Pereira</span>
+                    </a>
+                    <a class="nav-link nav-link-indice" href="#solucao">
+                        <i class="bi bi-cart-check"></i> 
+                        <span>A Solução: Site de Reserva</span>
+                    </a>
+                    <a class="nav-link nav-link-indice" href="#execucao">
+                        <i class="bi bi-code-square"></i> 
+                        <span>Execução e a Falta de Confiança</span>
+                    </a>
+                    <a class="nav-link nav-link-indice" href="#agradecimentos">
+                        <i class="bi bi-heart"></i> 
+                        <span>Agradecimentos e Força</span>
+                    </a>
+                </nav>
+                
+                <hr class="my-4">
+                
+                <!-- Status emocional -->
+                <div class="text-center">
+                    <small class="text-muted">Status do autor</small>
+                    <div class="mt-2">
+                        <span class="sentimento-medo sentimento-badge">
+                            <i class="bi bi-emoji-frown"></i> Medo 30%
+                        </span>
+                        <span class="sentimento-esperanca sentimento-badge">
+                            <i class="bi bi-emoji-smile"></i> Esperança 50%
+                        </span>
+                        <span class="sentimento-gratidao sentimento-badge">
+                            <i class="bi bi-heart"></i> Gratidão 20%
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- ===== CONTEÚDO PRINCIPAL ===== -->
+        <div class="col-lg-9">
+            <!-- Cabeçalho com título -->
+            <div class="content-card text-center mb-4">
+                <h1 class="display-5 fw-bold" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
+                    🏪 MP Mercadinhos Pereira
+                </h1>
+                <p class="lead text-muted">Sistema de Reserva e Retirada - TCC Sr. Millenium</p>
+                <div class="d-flex justify-content-center gap-2">
+                    <span class="badge bg-primary">Front-end</span>
+                    <span class="badge bg-success">Back-end</span>
+                    <span class="badge bg-warning text-dark">Reservas</span>
+                </div>
+            </div>
+            
+            <!-- SEÇÃO 1 - INTRODUÇÃO -->
+            <section id="intro">
+                <div class="content-card">
+                    <div class="section-title">
+                        <span class="section-number">1</span>
+                        <h2>Introdução: A Ideia e o Medo</h2>
+                    </div>
+                    
+                    <div class="quote-box">
+                        <i class="bi bi-quote fs-1" style="color: #667eea;"></i>
+                        <p class="mb-0">"É com um frio na barriga e um aperto no peito que começo a escrever este texto."</p>
+                    </div>
+                    
+                    <p>Apresentar um trabalho já é difícil, mas apresentar o <strong>meu primeiro TCC</strong>, um projeto que eu mesmo idealizei e tentei construir, é algo que me tira o sono. A ideia pareceu boa na minha cabeça, mas agora, na reta final, a insegurança tomou conta.</p>
+                    
+                    <div class="row mt-4">
+                        <div class="col-md-6">
+                            <div class="d-flex align-items-center p-3 bg-light rounded">
+                                <i class="bi bi-question-circle fs-1 text-warning me-3"></i>
+                                <div>
+                                    <strong>Será que é bom o suficiente?</strong>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="d-flex align-items-center p-3 bg-light rounded">
+                                <i class="bi bi-gear fs-1 text-danger me-3"></i>
+                                <div>
+                                    <strong>Será que vai funcionar na prática?</strong>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <p class="mt-3 text-muted fst-italic">Essas perguntas não calam na minha mente.</p>
+                </div>
+            </section>
+            
+            <!-- SEÇÃO 2 - O PROJETO -->
+            <section id="projeto">
+                <div class="content-card">
+                    <div class="section-title">
+                        <span class="section-number">2</span>
+                        <h2>O Projeto: MP Mercadinhos Pereira</h2>
+                    </div>
+                    
+                    <div class="row align-items-center">
+                        <div class="col-md-8">
+                            <p>O trabalho foi desenvolvido para a instituição <span class="fw-bold text-primary">Sr. Millenium</span> e tem como foco o <span class="fw-bold">MP Mercadinhos Pereira</span>.</p>
+                            
+                            <div class="bg-light p-4 rounded-4 my-3">
+                                <i class="bi bi-shop fs-1 float-start me-3" style="color: #667eea;"></i>
+                                <p class="mb-0">"É um mercado de bairro, daqueles tradicionais, onde o cliente gosta de sentir o cheiro do pão fresco e conversar com o seu Pereira no caixa."</p>
+                            </div>
+                            
+                            <p>A ideia não é substituir essa experiência, e sim criar uma ferramenta que a complemente.</p>
+                        </div>
+                        <div class="col-md-4 text-center">
+                            <div class="bg-primary bg-opacity-10 p-4 rounded-circle d-inline-block">
+                                <i class="bi bi-basket fs-1 text-primary"></i>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="alert alert-warning mt-3">
+                        <i class="bi bi-exclamation-triangle"></i>
+                        "Mas confesso que, sentado aqui, parece que estou tentando ensinar o peixe a andar na bicicleta."
+                    </div>
+                </div>
+            </section>
+            
+            <!-- SEÇÃO 3 - SOLUÇÃO -->
+            <section id="solucao">
+                <div class="content-card">
+                    <div class="section-title">
+                        <span class="section-number">3</span>
+                        <h2>A Solução: Site de Reserva e Retirada</h2>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-lg-7">
+                            <p>A proposta foi criar um site com uma funcionalidade específica: <mark class="bg-primary bg-opacity-25">apenas reservar e retirar na loja física</mark>.</p>
+                            
+                            <ul class="list-group list-group-flush mb-3">
+                                <li class="list-group-item bg-transparent">
+                                    <i class="bi bi-check-circle-fill text-success me-2"></i>
+                                    Cliente acessa o site
+                                </li>
+                                <li class="list-group-item bg-transparent">
+                                    <i class="bi bi-check-circle-fill text-success me-2"></i>
+                                    Vê os produtos do mercado
+                                </li>
+                                <li class="list-group-item bg-transparent">
+                                    <i class="bi bi-check-circle-fill text-success me-2"></i>
+                                    Separa no carrinho virtual
+                                </li>
+                                <li class="list-group-item bg-transparent">
+                                    <i class="bi bi-x-circle-fill text-danger me-2"></i>
+                                    <strong>Não há entrega</strong>
+                                </li>
+                                <li class="list-group-item bg-transparent">
+                                    <i class="bi bi-x-circle-fill text-danger me-2"></i>
+                                    <strong>Não há pagamento online</strong>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-lg-5">
+                            <div class="card border-0 bg-primary bg-opacity-10">
+                                <div class="card-body text-center">
+                                    <i class="bi bi-cart4 display-1 text-primary"></i>
+                                    <h5>É apenas uma "reserva"</h5>
+                                    <p class="small">O cliente garante que o produto não vai acabar</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <p class="mt-3 fw-light">A ideia é simples: praticidade sem perder a essência do mercadinho de bairro. Mas, na minha cabeça agora, a simplicidade parece ingenuidade.</p>
+                </div>
+            </section>
+            
+            <!-- SEÇÃO 4 - EXECUÇÃO -->
+            <section id="execucao">
+                <div class="content-card">
+                    <div class="section-title">
+                        <span class="section-number">4</span>
+                        <h2>A Execução e a Falta de Confiança</h2>
+                    </div>
+                    
+                    <p>Colocar isso em prática foi um desafio e tanto. Encarei <span class="fw-bold">noites em frente ao computador</span>, errei códigos, refiz telas e, a cada bug, minha confiança diminuía um pouco mais.</p>
+                    
+                    <div class="row g-3 my-3">
+                        <div class="col-md-4">
+                            <div class="p-3 border rounded-4 text-center">
+                                <i class="bi bi-code-slash fs-1 text-primary"></i>
+                                <h6>Front-end</h6>
+                                <small class="text-muted">Visual agradável</small>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="p-3 border rounded-4 text-center">
+                                <i class="bi bi-database fs-1 text-primary"></i>
+                                <h6>Back-end</h6>
+                                <small class="text-muted">Lógica da reserva</small>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="p-3 border rounded-4 text-center bg-danger bg-opacity-10">
+                                <i class="bi bi-exclamation-triangle fs-1 text-danger"></i>
+                                <h6>Medo</h6>
+                                <small class="text-danger">Falhar na apresentação</small>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="quote-box mt-3">
+                        <p class="mb-0">"A sensação é de que, a qualquer momento, o castelo de cartas pode desabar."</p>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- SEÇÃO 5 - AGRADECIMENTOS -->
+            <section id="agradecimentos">
+                <div class="content-card">
+                    <div class="section-title">
+                        <span class="section-number">5</span>
+                        <h2>Agradecimentos (e um Pedido de Força)</h2>
+                    </div>
+                    
+                    <div class="text-center mb-4">
+                        <i class="bi bi-heart-fill text-danger display-4"></i>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="d-flex align-items-center mb-3">
+                                <i class="bi bi-building fs-2 me-3 text-primary"></i>
+                                <div>
+                                    <h6>Instituição Sr. Millenium</h6>
+                                    <small>pelos ensinamentos</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="d-flex align-items-center mb-3">
+                                <i class="bi bi-people fs-2 me-3 text-success"></i>
+                                <div>
+                                    <h6>Professores</h6>
+                                    <small>pela calma transmitida</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="d-flex align-items-center mb-3">
+                                <i class="bi bi-shop fs-2 me-3 text-warning"></i>
+                                <div>
+                                    <h6>MP Mercadinhos Pereira</h6>
+                                    <small>por ceder o nome</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="d-flex align-items-center mb-3">
+                                <i class="bi bi-emoji-smile fs-2 me-3 text-info"></i>
+                                <div>
+                                    <h6>Você que torce por mim</h6>
+                                    <small>obrigado!</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <hr>
+                    
+                    <div class="text-center">
+                        <p class="lead">Apresentar este TCC, para mim, já é uma vitória pessoal,</p>
+                        <h3 class="fw-bold" style="color: #667eea;">pois estou enfrentando meu maior medo: o fracasso.</h3>
+                        
+                        <!-- Botão de incentivo -->
+                        <button class="btn btn-coragem mt-4" onclick="alert('Você vai conseguir! 🚀')">
+                            <i class="bi bi-rocket"></i> Força, guerreiro!
+                        </button>
+                        
+                        <p class="mt-4 text-muted">
+                            <i class="bi bi-quote"></i>
+                            Espero que, no final, o nervosismo não fale mais alto
+                        </p>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Mensagem final -->
+            <div class="text-center text-muted small py-3">
+                <i class="bi bi-arrow-up"></i> Clique nos itens do índice para navegar
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- Script para highlight automático do índice -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const sections = document.querySelectorAll('section');
+    const navLinks = document.querySelectorAll('.nav-link-indice');
+    
+    window.addEventListener('scroll', function() {
+        let current = '';
+        
+        sections.forEach(section => {
+            const sectionTop = section.offsetTop;
+            const sectionHeight = section.clientHeight;
+            if (pageYOffset >= sectionTop - 200) {
+                current = section.getAttribute('id');
+            }
+        });
+        
+        navLinks.forEach(link => {
+            link.classList.remove('active');
+            if (link.getAttribute('href') === `#${current}`) {
+                link.classList.add('active');
+            }
+        });
+    });
+});
+</script>
+
+</body>
+</html>
